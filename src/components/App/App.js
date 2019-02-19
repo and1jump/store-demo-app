@@ -3,8 +3,6 @@ import { Route, Switch } from "react-router-dom";
 import { HomePage, CartPage } from "../Pages";
 import "./app.css";
 
-import { WithBookstoreService } from "../Hoc";
-
 const App = () => {
   return (
     <Switch>
@@ -14,4 +12,4 @@ const App = () => {
   );
 };
 
-export default WithBookstoreService()(App);
+export default App;
