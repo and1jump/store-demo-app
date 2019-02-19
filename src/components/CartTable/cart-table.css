@@ -1,0 +1,14 @@
+.cart-table {
+  margin-top: 45px;
+}
+
+.cart-table .total {
+  text-align: right;
+  font-size: 1.3rem;
+  margin-right: 10px;
+}
+
+.cart-table button {
+  margin-left: 5px;
+  margin-top: 5px;
+}
