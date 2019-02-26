@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import BookListItem from "../BookListItem";
 import { connect } from "react-redux";
-import { booksLoaded, booksRequested, booksError } from "../../actions";
+import { fetchBooks } from "../../actions";
 import { compose } from "../../utils";
 import Spinner from "../Spinner";
 import ErrorIndicator from "../ErrorIndicator";
@@ -10,22 +10,23 @@ import "./book-list.css";
 
 import { WithBookstoreService } from "../Hoc";
 
-class BookList extends Component {
-  componentDidMount() {
-    // 1. receive data
-    // 2. dispacth action to store
-    const {
-      bookstoreService,
-      booksLoaded,
-      booksRequested,
-      booksError
-    } = this.props;
+const BookList = ({ books }) => {
+  return (
+    <ul className="book-list">
+      {books.map(book => {
+        return (
+          <li key={book.id}>
+            <BookListItem book={book} />
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
 
-    booksRequested();
-    bookstoreService
-      .getBooks()
-      .then(data => booksLoaded(data))
-      .catch(err => booksError(err));
+class BookListContainer extends Component {
+  componentDidMount() {
+    this.props.fetchBooks();
   }
 
   render() {
@@ -39,17 +40,7 @@ class BookList extends Component {
       return <ErrorIndicator />;
     }
 
-    return (
-      <ul className="book-list">
-        {books.map(book => {
-          return (
-            <li key={book.id}>
-              <BookListItem book={book} />
-            </li>
-          );
-        })}
-      </ul>
-    );
+    return <BookList books={books} />;
   }
 }
 
@@ -61,10 +52,10 @@ const mapStateToProps = ({ books, loading, error }) => {
   };
 };
 
-const mapDispatchToProps = {
-  booksLoaded,
-  booksRequested,
-  booksError
+const mapDispatchToProps = (dispacth, { bookstoreService }) => {
+  return {
+    fetchBooks: fetchBooks(bookstoreService, dispacth)
+  };
 };
 
 export default compose(
@@ -73,4 +64,4 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   )
-)(BookList);
+)(BookListContainer);
