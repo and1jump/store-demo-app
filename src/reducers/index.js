@@ -1,5 +1,5 @@
-import updateBookList from "./BookList";
-import updateShoppingCart from "./ShoppingCart";
+import updateBookList from "./book-list";
+import updateShoppingCart from "./shopping-cart";
 
 const reducer = (state, action) => {
   return {

@@ -34,7 +34,7 @@ class BookListContainer extends Component {
   }
 
   render() {
-    const { books, loading, error, onAddedToCart } = this.props;
+    const { books, loading, error, onAddedToCart  } = this.props;
 
     if (loading) {
       return <Spinner />;

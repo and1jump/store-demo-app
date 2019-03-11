@@ -7,6 +7,7 @@ import {
   allBooksRemovedFromCart
 } from "../../actions";
 import { connect } from "react-redux";
+import Total from "./Total";
 
 const CartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
   const renderRow = (item, idx) => {
@@ -58,15 +59,14 @@ const CartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
         <tbody>{items.map(renderRow)}</tbody>
       </table>
 
-      <div className="total">Total: ${total}</div>
+      <Total items={items} />
     </div>
   );
 };
 
-const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal } }) => {
+const mapStateToProps = ({ shoppingCart: { cartItems } }) => {
   return {
-    items: cartItems,
-    total: orderTotal
+    items: cartItems
   };
 };
 
